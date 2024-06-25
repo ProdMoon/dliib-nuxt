@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const modalNeedLoginShow = ref(false);
+</script>
+
 <template>
   <main class="flex justify-center items-center h-screen">
     <div class="w-full h-full max-w-screen-sm bg-gray-300 relative">
@@ -6,7 +10,7 @@
           <img src="/dliib_logo_small.png" alt="dliib logo" class="h-10" />
         </div>
         <div>
-          <ButtonRound>나도 드립쳐보기</ButtonRound>
+          <ButtonRound @click="modalNeedLoginShow = true">나도 드립쳐보기</ButtonRound>
         </div>
       </div>
 
@@ -34,6 +38,10 @@
           <div class="text-xs">드립의 장</div>
         </div>
       </div>
+
+      <!-- Modal zone -->
+      <ModalNeedLogin v-show="modalNeedLoginShow" @close="modalNeedLoginShow = false" />
+      <!-- Modal zone end -->
     </div>
   </main>
 </template>

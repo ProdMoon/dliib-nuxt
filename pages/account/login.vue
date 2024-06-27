@@ -7,6 +7,10 @@ const router = useRouter();
 const handleBack = () => {
   router.back();
 };
+
+const handleLogin = () => {
+  router.push('/');
+};
 </script>
 
 <template>
@@ -15,6 +19,7 @@ const handleBack = () => {
       <ButtonBack @click="handleBack" />
     </div>
     <div class="text-2xl font-bold">로그인</div>
+    <form class="w-full" @submit.prevent="handleLogin">
     <div class="mt-16 space-y-5 w-full">
       <div class="flex flex-col space-y-1">
         <label for="email" class="text-sm">이메일</label>
@@ -26,7 +31,8 @@ const handleBack = () => {
       </div>
     </div>
     <div class="mt-10 flex w-full justify-center">
-      <ButtonRound class="w-full">로그인</ButtonRound>
+      <ButtonRound class="w-full" type="submit">로그인</ButtonRound>
     </div>
+    </form>
   </div>
 </template>

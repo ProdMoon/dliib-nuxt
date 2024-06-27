@@ -18,6 +18,7 @@ const handleClose = () => {
       <img src="/doge.jpg" alt="doge welcome">
     </div>
     <div class="mt-5 text-4xl font-bold">웰 콤 !</div>
-    <ButtonRound href="/" class="mt-10">다른 놈들 드립 감상하기</ButtonRound>
+    <ButtonRound href="/dliib/hit" class="mt-10">드립 한 번 쳐보기</ButtonRound>
+    <ButtonRound href="/" class="mt-5">다른 놈들 드립 감상하기</ButtonRound>
   </div>
 </template>

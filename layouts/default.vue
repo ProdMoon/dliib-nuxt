@@ -20,7 +20,7 @@ const currentPath = computed(() => router.currentRoute.value.path);
 
       <div class="absolute bottom-0 left-0 w-full h-14 flex items-center justify-around px-2 bg-zinc-700">
         <NuxtLink to="/mypage">
-          <div class="text-white flex flex-col items-center">
+          <div :class="`flex flex-col items-center ${currentPath === '/mypage' ? 'text-blue-300' : 'text-white'}`">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path
                 fill-rule="evenodd"
@@ -32,7 +32,7 @@ const currentPath = computed(() => router.currentRoute.value.path);
           </div>
         </NuxtLink>
         <NuxtLink to="/">
-          <div :class="`text-white flex flex-col items-center ${currentPath === '/' ? 'text-blue-300' : ''}`">
+          <div :class="`flex flex-col items-center ${currentPath === '/' ? 'text-blue-300' : 'text-white'}`">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path
                 fill-rule="evenodd"

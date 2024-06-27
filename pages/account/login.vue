@@ -1,12 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'blank',
+  layout: 'hasback',
+  title: '로그인',
 });
 const router = useRouter();
-
-const handleBack = () => {
-  router.back();
-};
 
 const handleLogin = () => {
   router.push('/');
@@ -15,12 +12,8 @@ const handleLogin = () => {
 
 <template>
   <div class="flex flex-col items-center w-full p-5 relative">
-    <div class="absolute top-5 left-5">
-      <ButtonBack @click="handleBack" />
-    </div>
-    <div class="text-2xl font-bold">로그인</div>
     <form class="w-full" @submit.prevent="handleLogin">
-    <div class="mt-16 space-y-5 w-full">
+    <div class="mt-8 space-y-5 w-full">
       <div class="flex flex-col space-y-1">
         <label for="email" class="text-sm">이메일</label>
         <InputDefault type="email" />

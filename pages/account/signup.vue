@@ -1,12 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'blank',
+  layout: 'hasback',
+  title: '회원가입',
 });
 const router = useRouter();
-
-const handleBack = () => {
-  router.back();
-};
 
 const handleSignup = () => {
   router.push('/account/signupcomplete');
@@ -15,11 +12,7 @@ const handleSignup = () => {
 
 <template>
   <div class="flex flex-col items-center w-full p-5 relative">
-    <div class="absolute top-5 left-5">
-      <ButtonBack @click="handleBack" />
-    </div>
-    <div class="text-2xl font-bold">회원가입</div>
-    <div class="mt-2">사실 3초컷은 구라임 ㅋㅋ</div>
+    <div>사실 3초컷은 구라임 ㅋㅋ</div>
     <form class="w-full" @submit.prevent="handleSignup">
       <div class="mt-10 space-y-5 w-full">
         <div class="flex flex-col space-y-1">

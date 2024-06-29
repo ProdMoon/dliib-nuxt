@@ -11,10 +11,10 @@ const props = defineProps<{
       <div class="text-2xl font-bold">다 적었나유?<br />나중에 수정은 안돼유~</div>
       <div class="mt-4">(삭제는 됨)</div>
       <div class="mt-10">
-        <ButtonRound @click="onConfirm">올리기</ButtonRound>
+        <ButtonRound @click="onConfirm" confirm>올리기</ButtonRound>
       </div>
       <div class="mt-5">
-        <ButtonRound @click="onClose">취소</ButtonRound>
+        <ButtonRound @click="onClose">돌아가기</ButtonRound>
       </div>
     </div>
   </ModalDefault>

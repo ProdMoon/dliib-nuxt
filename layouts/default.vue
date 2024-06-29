@@ -4,9 +4,16 @@ const router = useRouter();
 const currentPath = computed(() => router.currentRoute.value.path);
 </script>
 
+<style scoped>
+#default-slot-container {
+  height: calc(100vh - 7rem);
+  margin-top: 3.5rem;
+}
+</style>
+
 <template>
   <main class="flex justify-center items-center h-screen">
-    <div class="w-full h-full max-w-screen-sm bg-gray-300 relative">
+    <div class="w-full h-full max-w-screen-sm bg-gray-50 relative">
       <div class="absolute top-0 left-0 w-full h-14 flex items-center justify-between px-2 bg-zinc-700">
         <div>
           <img src="/dliib_logo_small.png" alt="dliib logo" class="h-10" />
@@ -16,7 +23,9 @@ const currentPath = computed(() => router.currentRoute.value.path);
         </div>
       </div>
 
-      <slot></slot>
+      <div id="default-slot-container">
+        <slot></slot>
+      </div>
 
       <div class="absolute bottom-0 left-0 w-full h-14 flex items-center justify-around px-2 bg-zinc-700">
         <NuxtLink to="/mypage">

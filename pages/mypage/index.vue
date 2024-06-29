@@ -1,12 +1,7 @@
-<script setup lang="ts">
-definePageMeta({
-  layout: 'hasback',
-  title: '내정보',
-})
-</script>
-
 <template>
-  <ButtonNavigateMenu href="/mypage/mydliibs">
-    내가 쓴 글
-  </ButtonNavigateMenu>
+  <div class="w-full h-full">
+    <ButtonNavigateMenu href="/mypage/mydliibs">
+      내가 쓴 글
+    </ButtonNavigateMenu>
+  </div>
 </template>

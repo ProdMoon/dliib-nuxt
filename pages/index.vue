@@ -1,12 +1,12 @@
+<script setup lang="ts">
+const dliibs = await useFetchDliibs();
+</script>
+
 <template>
   <DliibWindowContainer>
     <DliibWindowInnerContainer>
-      <DliibWindowContentCard>
-        그거 아세요?<br />
-        옛날 옛날에 썸카인옵 슈퍼노바<br />
-        워치아웃<br />
-        사건은 다가와 아오에이<br />
-        거세게 커져가 아오에이
+      <DliibWindowContentCard v-for="dliib in dliibs">
+        <div v-html="dliib.content?.replaceAll('\n', '<br />')"></div>
       </DliibWindowContentCard>
       <DliibWindowContentCard>
         초등학교 다니는 딸의 숙제가 5대양 6대주를 알아오라는 것이었어요.<br />

@@ -3,9 +3,12 @@ import type { Dliib } from '@/types/dliib';
 definePageMeta({
   layout: 'hasback',
   title: '드립쳐보기',
+  middleware: 'auth',
 });
 
+const { token } = useAuth();
 const router = useRouter();
+
 const showModal = ref(false);
 const dliib: Ref<Dliib> = ref({
   content: '',
@@ -16,6 +19,7 @@ const handleConfirm = async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: token.value!,
     },
     body: dliib.value,
   });

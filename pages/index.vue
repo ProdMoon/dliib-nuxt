@@ -7,6 +7,7 @@ const dliibs = await useFetchDliibs();
     <DliibWindowInnerContainer>
       <DliibWindowContentCard v-for="dliib in dliibs">
         <div v-html="dliib.content?.replaceAll('\n', '<br />')"></div>
+        <div class="absolute bottom-5 left-5 text-gray-500 italic">by. {{ dliib.author?.nickName ?? '익명' }}</div>
       </DliibWindowContentCard>
       <DliibWindowContentCard>
         초등학교 다니는 딸의 숙제가 5대양 6대주를 알아오라는 것이었어요.<br />
@@ -54,6 +55,10 @@ const dliibs = await useFetchDliibs();
         그러자 아이큐 1.5가 말했어요.<br />
         아이큐 1.5 : "야~~ 나 방학 동안에 점 뺐어! 인마~~!!"<br />
         ㅎㅎㅎㅎㅎㅎ
+      </DliibWindowContentCard>
+      <DliibWindowContentCard>
+        어머! 마지막 드립이에요 🥲<br />
+        드립 부족 사태를 해결하기 위해 드립을 쳐 봅시다 (우상단)
       </DliibWindowContentCard>
     </DliibWindowInnerContainer>
   </DliibWindowContainer>

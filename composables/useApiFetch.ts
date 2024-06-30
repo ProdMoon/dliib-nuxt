@@ -1,7 +1,8 @@
 import type { UseFetchOptions } from '#app';
 
 export default async function (url: string, options?: UseFetchOptions<any>): Promise<any> {
-  const baseUrl = 'http://localhost:5214';
+  const config = useRuntimeConfig();
+  const baseUrl = config.public.baseURL;
   if (options) {
     options = {
       ...options,

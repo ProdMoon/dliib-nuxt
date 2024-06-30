@@ -1,8 +1,8 @@
 export interface Dliib {
   id?: number;
   content?: string;
-  Likes?: number;
-  Dislikes?: number;
+  likes?: number;
+  dislikes?: number;
   createdAt?: string;
-  Author?: any;
+  author?: any;
 }

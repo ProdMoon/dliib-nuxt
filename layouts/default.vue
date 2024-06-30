@@ -1,7 +1,16 @@
 <script setup lang="ts">
-const modalNeedLoginShow = ref(false);
+const { status, signOut } = useAuth();
+const route = useRoute();
 const router = useRouter();
+
+const modalNeedLoginShow = ref(false);
+
 const currentPath = computed(() => router.currentRoute.value.path);
+const isLogon = computed(() => status.value === 'authenticated');
+
+const handleLogout = async () => {
+  await signOut();
+};
 </script>
 
 <style scoped>
@@ -18,8 +27,10 @@ const currentPath = computed(() => router.currentRoute.value.path);
         <div>
           <img src="/dliib_logo_small.png" alt="dliib logo" class="h-10" />
         </div>
-        <div>
-          <ButtonRound @click="modalNeedLoginShow = true">나도 드립쳐보기</ButtonRound>
+        <div class="flex items-center space-x-2">
+          <ButtonRound v-if="!isLogon" :href="`/account/login?returnUrl=${route.path}`">로그인</ButtonRound>
+          <ButtonRound v-else @click="handleLogout">로그아웃</ButtonRound>
+          <ButtonRound @click="isLogon ? router.push('/dliib/hit') : modalNeedLoginShow = true">나도 드립쳐보기</ButtonRound>
         </div>
       </div>
 

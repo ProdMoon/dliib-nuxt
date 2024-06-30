@@ -2,6 +2,7 @@
 const { status, signOut } = useAuth();
 const route = useRoute();
 const router = useRouter();
+const innerHeight = ref(1280);
 
 const modalNeedLoginShow = ref(false);
 
@@ -9,20 +10,22 @@ const currentPath = computed(() => router.currentRoute.value.path);
 const isLogon = computed(() => status.value === 'authenticated');
 
 const handleLogout = async () => {
-  await signOut();
+  await signOut({ redirect: false });
 };
+
+const innerHeightListener = () => {
+  innerHeight.value = window.innerHeight;
+};
+
+onMounted(() => {
+  innerHeightListener();
+  window.addEventListener('resize', innerHeightListener);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', innerHeightListener);
+});
 </script>
-
-<style scoped>
-#default-slot-container {
-  height: calc(100vh - 7rem);
-  margin-top: 3.5rem;
-}
-
-#bottom-nav {
-  padding-bottom: env(safe-area-inset-bottom);
-}
-</style>
 
 <template>
   <main class="flex justify-center items-center h-screen">
@@ -32,17 +35,22 @@ const handleLogout = async () => {
           <img src="/dliib_logo_small.png" alt="dliib logo" class="h-10" />
         </div>
         <div class="flex items-center space-x-2">
-          <ButtonRound v-if="!isLogon" :href="`/account/login?returnUrl=${route.path}`">로그인</ButtonRound>
+          <ButtonRound v-if="!isLogon" :href="`/account/login?returnUrl=${currentPath}`">로그인</ButtonRound>
           <ButtonRound v-else @click="handleLogout">로그아웃</ButtonRound>
-          <ButtonRound @click="isLogon ? router.push('/dliib/hit') : modalNeedLoginShow = true">나도 드립쳐보기</ButtonRound>
+          <ButtonRound @click="isLogon ? router.push('/dliib/hit') : (modalNeedLoginShow = true)"
+            >나도 드립쳐보기</ButtonRound
+          >
         </div>
       </div>
 
-      <div id="default-slot-container">
+      <div :style="{ height: `calc(${innerHeight}px - 7rem)`, marginTop: '3.5rem' }">
         <slot></slot>
       </div>
 
-      <div id="bottom-nav" class="absolute bottom-0 left-0 w-full h-14 flex items-center justify-around px-2 bg-zinc-700">
+      <div
+        id="bottom-nav"
+        class="absolute bottom-0 left-0 w-full h-14 flex items-center justify-around px-2 bg-zinc-700"
+      >
         <NuxtLink to="/mypage">
           <div :class="`flex flex-col items-center ${currentPath === '/mypage' ? 'text-blue-300' : 'text-white'}`">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">

@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-const BASE_URL = 'http://localhost:5214';
+const BASE_URL = 'https://dliibapi.azurewebsites.net';
 
 export default defineNuxtConfig({
   devtools: { enabled: true },

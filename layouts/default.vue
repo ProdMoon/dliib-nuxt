@@ -18,6 +18,10 @@ const handleLogout = async () => {
   height: calc(100vh - 7rem);
   margin-top: 3.5rem;
 }
+
+#bottom-nav {
+  padding-bottom: env(safe-area-inset-bottom);
+}
 </style>
 
 <template>
@@ -38,7 +42,7 @@ const handleLogout = async () => {
         <slot></slot>
       </div>
 
-      <div class="absolute bottom-0 left-0 w-full h-14 flex items-center justify-around px-2 bg-zinc-700">
+      <div id="bottom-nav" class="absolute bottom-0 left-0 w-full h-14 flex items-center justify-around px-2 bg-zinc-700">
         <NuxtLink to="/mypage">
           <div :class="`flex flex-col items-center ${currentPath === '/mypage' ? 'text-blue-300' : 'text-white'}`">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">

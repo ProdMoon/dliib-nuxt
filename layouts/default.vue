@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { status, signOut } = useAuth();
-const route = useRoute();
 const router = useRouter();
 const innerHeight = ref(1280);
 
@@ -47,10 +46,7 @@ onUnmounted(() => {
         <slot></slot>
       </div>
 
-      <div
-        id="bottom-nav"
-        class="absolute bottom-0 left-0 w-full h-14 flex items-center justify-around px-2 bg-zinc-700"
-      >
+      <div class="w-full h-14 flex items-center justify-around px-2 bg-zinc-700">
         <NuxtLink to="/mypage">
           <div :class="`flex flex-col items-center ${currentPath === '/mypage' ? 'text-blue-300' : 'text-white'}`">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">

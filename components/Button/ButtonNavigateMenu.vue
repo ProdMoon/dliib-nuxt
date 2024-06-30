@@ -10,8 +10,8 @@ const combinedClass = `w-full flex items-center p-5 border-b hover:bg-blue-50 ${
 
 <template>
   <ButtonDefault :href="props.href" :class="combinedClass" @click="props.onClick">
-    <div class="flex w-full justify-between">
-      <div>
+    <div class="flex w-full items-center justify-between">
+      <div class="w-11/12 grow">
         <slot></slot>
       </div>
       <div>

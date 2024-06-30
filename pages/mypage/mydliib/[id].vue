@@ -1,25 +1,33 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'hasback',
+  title: '내 드립',
+  middleware: 'auth',
 });
 
 const route = useRoute();
 const router = useRouter();
+const { token } = useAuth();
 const showModal = ref(false);
 
-const dliib = {
-  title: '드립 1',
-};
-route.meta.title = dliib.title;
 
-const handleConfirm = () => {
+const { data } = await useApiFetch(`/api/dliib/${route.params.id}`);
+const dliib: Dliib = data;
+
+const handleConfirm = async () => {
+  await useApiFetch(`/api/dliib/${route.params.id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: token.value!,
+    },
+  });
   router.push('/mypage/mydliibs');
 };
 </script>
 
 <template>
   <div class="p-5">
-    <div>여기에 당신의 드립 내용</div>
+    <div>{{ dliib.content }}</div>
     <div class="flex justify-end mt-4">
       <ButtonRound @click="showModal = true">삭제?</ButtonRound>
     </div>

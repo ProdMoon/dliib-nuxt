@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import moment from 'moment';
-
 const dliibs = await useFetchDliibs();
-
-const getMoment = (date: string | undefined) => moment(date).format('YYYY-MM-DD HH:mm:ss');
 </script>
 
 <template>
@@ -13,7 +9,7 @@ const getMoment = (date: string | undefined) => moment(date).format('YYYY-MM-DD 
         <div v-html="dliib.content?.replaceAll('\n', '<br />')"></div>
         <div class="absolute bottom-5 left-5 text-gray-500">
           <div class="italic">by. {{ dliib.authorNickName ?? '익명' }}</div>
-          <div class="text-sm">{{ getMoment(dliib.createdAt) }}</div>
+          <div class="text-sm">{{ momentFormat(dliib.createdAt) }}</div>
         </div>
       </DliibWindowContentCard>
       <DliibWindowContentCard>

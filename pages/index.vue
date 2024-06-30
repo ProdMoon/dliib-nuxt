@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import moment from 'moment';
+
 const dliibs = await useFetchDliibs();
+
+const getMoment = (date: string | undefined) => moment(date).format('YYYY-MM-DD HH:mm:ss');
 </script>
 
 <template>
@@ -7,7 +11,10 @@ const dliibs = await useFetchDliibs();
     <DliibWindowInnerContainer>
       <DliibWindowContentCard v-for="dliib in dliibs">
         <div v-html="dliib.content?.replaceAll('\n', '<br />')"></div>
-        <div class="absolute bottom-5 left-5 text-gray-500 italic">by. {{ dliib.author?.nickName ?? '익명' }}</div>
+        <div class="absolute bottom-5 left-5 text-gray-500">
+          <div class="italic">by. {{ dliib.authorNickName ?? '익명' }}</div>
+          <div class="text-sm">{{ getMoment(dliib.createdAt) }}</div>
+        </div>
       </DliibWindowContentCard>
       <DliibWindowContentCard>
         초등학교 다니는 딸의 숙제가 5대양 6대주를 알아오라는 것이었어요.<br />

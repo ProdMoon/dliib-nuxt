@@ -4,5 +4,5 @@ export interface Dliib {
   likes?: number;
   dislikes?: number;
   createdAt?: string;
-  author?: any;
+  authorNickName?: string;
 }

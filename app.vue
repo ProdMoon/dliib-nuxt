@@ -3,7 +3,11 @@ const { status, refresh } = useAuth();
 const { refreshToken } = useAuthState();
 
 if (status.value === 'unauthenticated' && refreshToken.value) {
-  //refresh();
+  try {
+    await refresh();
+  } catch (error) {
+    // ignore
+  }
 }
 </script>
 

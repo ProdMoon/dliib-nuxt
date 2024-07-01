@@ -2,16 +2,18 @@ import type { UseFetchOptions } from '#app';
 
 export default async function (url: string, options?: UseFetchOptions<any>): Promise<any> {
   const config = useRuntimeConfig();
-  const baseUrl = config.public.baseURL;
+  const defaultOptions: UseFetchOptions<any> = {
+    baseURL: config.public.baseURL,
+    timeout: 3000,
+  }
+
   if (options) {
     options = {
       ...options,
-      baseURL: baseUrl,
+      ...defaultOptions,
     };
   } else {
-    options = {
-      baseURL: baseUrl,
-    };
+    options = defaultOptions;
   }
   return await useFetch<any>(url, options);
 }

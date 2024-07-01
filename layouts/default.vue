@@ -1,11 +1,10 @@
 <script setup lang="ts">
 const { status, signOut } = useAuth();
+const route = useRoute();
 const router = useRouter();
 const innerHeight = ref(1280);
 
 const modalNeedLoginShow = ref(false);
-
-const currentPath = computed(() => router.currentRoute.value.path);
 const isLogon = computed(() => status.value === 'authenticated');
 
 const handleLogout = async () => {
@@ -34,8 +33,8 @@ onUnmounted(() => {
           <img src="/dliib_logo_small.png" alt="dliib logo" class="h-10" />
         </div>
         <div class="flex items-center space-x-2">
-          <ButtonRound v-if="!isLogon" :href="`/account/login?returnUrl=${currentPath}`">로그인</ButtonRound>
-          <ButtonRound v-else @click="handleLogout">로그아웃</ButtonRound>
+          <ButtonRound v-show="!isLogon" :href="`/account/login?returnUrl=${route.path}`">로그인</ButtonRound>
+          <ButtonRound v-show="isLogon" @click="handleLogout">로그아웃</ButtonRound>
           <ButtonRound @click="isLogon ? router.push('/dliib/hit') : (modalNeedLoginShow = true)"
             >나도 드립쳐보기</ButtonRound
           >
@@ -48,7 +47,7 @@ onUnmounted(() => {
 
       <div class="w-full h-14 flex items-center justify-around px-2 bg-zinc-700">
         <NuxtLink to="/mypage">
-          <div :class="`flex flex-col items-center ${currentPath === '/mypage' ? 'text-blue-300' : 'text-white'}`">
+          <div :class="`flex flex-col items-center ${route.path === '/mypage' ? 'text-blue-300' : 'text-white'}`">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path
                 fill-rule="evenodd"
@@ -60,7 +59,7 @@ onUnmounted(() => {
           </div>
         </NuxtLink>
         <NuxtLink to="/">
-          <div :class="`flex flex-col items-center ${currentPath === '/' ? 'text-blue-300' : 'text-white'}`">
+          <div :class="`flex flex-col items-center ${route.path === '/' ? 'text-blue-300' : 'text-white'}`">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path
                 fill-rule="evenodd"

@@ -1,5 +1,10 @@
 <script setup lang="ts">
+const apiHealth = ref(true);
 const dliibs = await useFetchDliibs();
+
+onMounted(async () => {
+  apiHealth.value = !!await useApiFetch('/api/health');
+});
 </script>
 
 <template>
@@ -20,7 +25,7 @@ const dliibs = await useFetchDliibs();
       </template>
       <template v-else>
         <DliibWindowContentCard>
-          서버가 잠에서 깬 지 얼마 되지 않아 정신이 없습니다. 30초 정도 후에 새로고침을 해주세요... 🤔
+          {{ apiHealth ? 'DB' : '서버' }}가 잠에서 깬 지 얼마 되지 않아 정신이 없습니다. 30초 정도 후에 새로고침을 해주세요... 🤔
         </DliibWindowContentCard>
       </template>
     </DliibWindowInnerContainer>

@@ -4,7 +4,7 @@ export default async function (url: string, options?: UseFetchOptions<any>): Pro
   const config = useRuntimeConfig();
   const defaultOptions: UseFetchOptions<any> = {
     baseURL: config.public.baseURL,
-    timeout: 3000,
+    timeout: 5000,
   }
 
   if (options) {

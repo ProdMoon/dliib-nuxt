@@ -3,7 +3,8 @@ const apiHealth = ref(true);
 const dliibs = await useFetchDliibs();
 
 onMounted(async () => {
-  apiHealth.value = !!await useApiFetch('/api/health');
+  const { data } = await useApiFetch('/api/health');
+  apiHealth.value = !!data.value;
 });
 </script>
 

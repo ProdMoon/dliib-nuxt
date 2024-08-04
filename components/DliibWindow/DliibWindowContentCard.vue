@@ -65,7 +65,7 @@ const getDliib = async () => {
         <div class="text-sm">{{ momentFormat(dliib.createdAt) }}</div>
       </div>
       <div class="absolute bottom-5 right-5 text-gray-500">
-        <div class="italic">좋았다 <span class="text-blue-500">{{ dliib.likes }}개</span> / 분발하자 <span class="text-red-500">{{ dliib.dislikes }}개</span></div>
+        <div class="italic text-sm">좋았다 <span class="text-blue-500">{{ dliib.likes }}개</span> / 분발하자 <span class="text-red-500">{{ dliib.dislikes }}개</span></div>
       </div>
       <div class="absolute bottom-20 right-6">
         <div class="space-y-6">

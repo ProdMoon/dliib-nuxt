@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Dliib } from '@/types/dliib';
+
 definePageMeta({
   layout: 'hasback',
   title: '내 드립',
@@ -9,10 +11,7 @@ const route = useRoute();
 const router = useRouter();
 const { token } = useAuth();
 const showModal = ref(false);
-
-
-const { data } = await useApiFetch(`/api/dliib/${route.params.id}`);
-const dliib: Dliib = data;
+const dliib = ref<Dliib>(await useApiFetch(`/api/dliib/${route.params.id}`));
 
 const handleConfirm = async () => {
   await useApiFetch(`/api/dliib/${route.params.id}`, {
@@ -27,7 +26,7 @@ const handleConfirm = async () => {
 
 <template>
   <div class="p-5">
-    <div>{{ dliib.content }}</div>
+    <div v-html="dliib.content?.replaceAll('\n', '<br />')"></div>
     <div class="flex justify-end mt-4">
       <ButtonRound @click="showModal = true">삭제?</ButtonRound>
     </div>

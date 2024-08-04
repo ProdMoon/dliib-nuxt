@@ -1,10 +1,21 @@
 <script setup lang="ts">
+import type { Dliib } from '@/types/dliib';
+
+const { token } = useAuth();
+
 const apiHealth = ref(true);
-const dliibs = await useFetchDliibs();
+const dliibs = ref<Dliib[] | undefined>(undefined);
+
+const healthResponse = await useApiFetch('/api/health');
+apiHealth.value = !!healthResponse;
 
 onMounted(async () => {
-  const { data } = await useApiFetch('/api/health');
-  apiHealth.value = !!data.value;
+  const dliibsResponse = await useApiFetch('/api/dliib', {
+    headers: {
+      Authorization: token.value!,
+    },
+  });
+  dliibs.value = dliibsResponse;
 });
 </script>
 
@@ -12,12 +23,7 @@ onMounted(async () => {
   <DliibWindowContainer>
     <DliibWindowInnerContainer>
       <template v-if="dliibs">
-        <DliibWindowContentCard v-for="dliib in dliibs">
-          <div v-html="dliib.content?.replaceAll('\n', '<br />')"></div>
-          <div class="absolute bottom-5 left-5 text-gray-500">
-            <div class="italic">by. {{ dliib.authorNickName ?? '익명' }}</div>
-            <div class="text-sm">{{ momentFormat(dliib.createdAt) }}</div>
-          </div>
+        <DliibWindowContentCard v-for="dliib in dliibs" :dliib="dliib">
         </DliibWindowContentCard>
         <DliibWindowContentCard>
           어머! 마지막 드립이에요 🥲<br />
@@ -26,7 +32,9 @@ onMounted(async () => {
       </template>
       <template v-else>
         <DliibWindowContentCard>
-          {{ apiHealth ? 'DB' : '서버' }}가 잠에서 깬 지 얼마 되지 않아 정신이 없습니다. 30초 정도 후에 새로고침을 해주세요... 🤔
+          드립을 불러오는 중...<br />
+          <br />
+          서버 상태가 {{ apiHealth ? '좋습니다.' : '좋지 않습니다... 🤔 이 상태가 지속된다면 새로고침 해주세요.' }}
         </DliibWindowContentCard>
       </template>
     </DliibWindowInnerContainer>

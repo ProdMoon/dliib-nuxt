@@ -4,7 +4,7 @@ const route = useRoute();
 const router = useRouter();
 const innerHeight = ref(1280);
 
-const modalNeedLoginShow = ref(false);
+const modalNeedLoginShow = useState('modalNeedLoginShow', () => false);
 const isLogon = computed(() => status.value === 'authenticated');
 
 const handleLogout = async () => {

@@ -9,13 +9,12 @@ definePageMeta({
 
 const { token } = useAuth();
 
-const { data } = await useApiFetch('/api/dliib/my', {
+const dliibs = ref<Dliib[]>(await useApiFetch('/api/dliib/my', {
   method: 'GET',
   headers: {
     Authorization: token.value!,
   },
-});
-const dliibs: Dliib[] = data;
+}));
 </script>
 
 <template>

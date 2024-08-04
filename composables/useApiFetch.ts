@@ -1,8 +1,6 @@
-import type { UseFetchOptions } from '#app';
-
-export default async function (url: string, options?: UseFetchOptions<any>): Promise<any> {
+export default async function (url: string, options?: any): Promise<any> {
   const config = useRuntimeConfig();
-  const defaultOptions: UseFetchOptions<any> = {
+  const defaultOptions = {
     baseURL: config.public.baseURL,
     timeout: 5000,
   }
@@ -15,5 +13,5 @@ export default async function (url: string, options?: UseFetchOptions<any>): Pro
   } else {
     options = defaultOptions;
   }
-  return await useFetch<any>(url, options);
+  return await $fetch<any>(url, options);
 }

@@ -2,7 +2,6 @@
 const { status, signOut } = useAuth();
 const route = useRoute();
 const router = useRouter();
-const innerHeight = ref(1280);
 
 const modalNeedLoginShow = useState('modalNeedLoginShow', () => false);
 const isLogon = computed(() => status.value === 'authenticated');
@@ -10,20 +9,14 @@ const isLogon = computed(() => status.value === 'authenticated');
 const handleLogout = async () => {
   await signOut({ redirect: false });
 };
-
-const innerHeightListener = () => {
-  innerHeight.value = window.innerHeight;
-};
-
-onMounted(() => {
-  innerHeightListener();
-  window.addEventListener('resize', innerHeightListener);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('resize', innerHeightListener);
-});
 </script>
+
+<style scoped>
+.container {
+  height: calc(100dvh - 7rem);
+  margin-top: 3.5rem;
+}
+</style>
 
 <template>
   <main class="flex justify-center items-center h-screen">
@@ -41,7 +34,7 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <div :style="{ height: `calc(${innerHeight}px - 7rem)`, marginTop: '3.5rem' }">
+      <div class="container">
         <slot></slot>
       </div>
 

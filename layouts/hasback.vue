@@ -9,7 +9,7 @@ const handleBack = () => {
 
 <style scoped>
 .container {
-  height: calc(100vh - 3.5rem);
+  height: calc(100dvh - 3.5rem);
 }
 </style>
 

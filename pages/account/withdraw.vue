@@ -23,10 +23,10 @@ const handleWithdraw = async () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center w-full p-5 relative">
+  <div class="flex flex-col items-center w-full h-full p-5 relative">
     <div>정말 탈퇴하시겠습니까?</div>
     <div>작성한 글들은 사라지지 않습니다.</div>
-    <div class="mt-10 flex w-full justify-center">
+    <div class="absolute bottom-20 p-5 flex w-full justify-center">
       <ButtonRound class="w-full" danger @click="handleWithdraw">네, 탈퇴하겠습니다.</ButtonRound>
     </div>
   </div>

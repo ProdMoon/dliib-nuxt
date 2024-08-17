@@ -7,6 +7,12 @@ const handleBack = () => {
 };
 </script>
 
+<style scoped>
+.container {
+  height: calc(100vh - 3.5rem);
+}
+</style>
+
 <template>
   <NuxtLayout name="blank">
     <div class="h-14 bg-gray-200 flex items-center justify-center relative">
@@ -15,6 +21,8 @@ const handleBack = () => {
       </div>
       <div class="text-2xl font-bold">{{ route.meta.title }}</div>
     </div>
-    <slot></slot>
+    <div class="container overflow-y-auto">
+      <slot></slot>
+    </div>
   </NuxtLayout>
 </template>

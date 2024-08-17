@@ -1,6 +1,6 @@
 export interface Dliib {
   id?: number;
-  content?: string;
+  contents?: string[];
   likes?: number;
   dislikes?: number;
   isLiked?: boolean;

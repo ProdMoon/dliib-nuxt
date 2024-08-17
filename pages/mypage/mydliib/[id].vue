@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Dliib } from '@/types/dliib';
+import DliibWindowContentCard from '~/components/DliibWindow/DliibWindowContentCard.vue';
 
 definePageMeta({
   layout: 'hasback',
@@ -11,7 +12,13 @@ const route = useRoute();
 const router = useRouter();
 const { token } = useAuth();
 const showModal = ref(false);
-const dliib = ref<Dliib>(await useApiFetch(`/api/dliib/${route.params.id}`));
+const dliib = ref<Dliib>(
+  await useApiFetch(`/api/dliib/${route.params.id}`, {
+    headers: {
+      Authorization: token.value!,
+    },
+  })
+);
 
 const handleConfirm = async () => {
   await useApiFetch(`/api/dliib/${route.params.id}`, {
@@ -25,9 +32,11 @@ const handleConfirm = async () => {
 </script>
 
 <template>
-  <div class="p-5">
-    <div v-html="dliib.content?.replaceAll('\n', '<br />')"></div>
-    <div class="flex justify-end mt-4">
+  <div class="h-full">
+    <div class="h-5/6">
+      <DliibWindowContentCard :dliib="dliib" />
+    </div>
+    <div class="flex justify-end mt-2 px-5">
       <ButtonRound @click="showModal = true">삭제?</ButtonRound>
     </div>
   </div>

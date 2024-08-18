@@ -59,6 +59,7 @@ const initContentsObserver = () => {
       if (!entry.isIntersecting) return;
       const idx = dliibContentElements.value.indexOf(entry.target as HTMLElement);
       if (idx !== -1) currentPage.value = idx;
+      console.log(`${dliib.value!.id}'s current page is ${currentPage.value}`);
     });
   }, {
     root: document.getElementById(`dliib-${dliib.value!.id}-container`),
@@ -112,13 +113,13 @@ const getDliib = async () => {
 };
 
 const moveToPreviousPage = () => {
-  const el = document.getElementById(`dliib-${dliib.value!.id}-${currentPage.value - 1}`);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const el = document.getElementById(`dliib-${dliib.value!.id}-container`);
+  if (el) el.scrollBy({ left: -el.clientWidth, behavior: 'smooth' });
 };
 
 const moveToNextPage = () => {
-  const el = document.getElementById(`dliib-${dliib.value!.id}-${currentPage.value + 1}`);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const el = document.getElementById(`dliib-${dliib.value!.id}-container`);
+  if (el) el.scrollBy({ left: el.clientWidth, behavior: 'smooth' });
 };
 </script>
 

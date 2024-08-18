@@ -17,27 +17,51 @@ const maxPage = computed(() => {
 });
 
 onMounted(() => {
-  initObserver();
-  dliibContentElements.value = Array.from(document.getElementsByClassName('dliib-content')) as HTMLElement[];
-  dliibContentElements.value.forEach(el => observer.observe(el));
+  if (!dliib.value) return;
+  const id = dliib.value.id;
+
+  initContainerObserver();
+  containerObserver.observe(document.getElementById(`dliib-${id}-container`) as HTMLElement);
+  
+  for (let idx = 0; idx < dliib.value.contents!.length; idx++) {
+    const el = document.getElementById(`dliib-${id}-${idx}`);
+    if (el) dliibContentElements.value.push(el);
+  }
+  initContentsObserver();
+  dliibContentElements.value.forEach((el) => contentsObserver.observe(el));
 });
 
 onUnmounted(() => {
-  observer.disconnect();
+  contentsObserver && contentsObserver.disconnect();
+  containerObserver && containerObserver.disconnect();
 });
 
-let observer: IntersectionObserver;
-const initObserver = () => {
-  if (observer) observer.disconnect();
-  observer = new IntersectionObserver((entries) => {
+let containerObserver: IntersectionObserver;
+const initContainerObserver = () => {
+  if (containerObserver) containerObserver.disconnect();
+  containerObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const idx = dliibContentElements.value.indexOf(entry.target as HTMLElement);
-        if (idx !== -1) currentPage.value = idx;
-      }
+      const container = entry.target as HTMLElement;
+      if (!container) return;
+      if (!entry.isIntersecting) return;
+      container.focus({ preventScroll: true });
     });
   }, {
-    root: document.querySelector('.dliib-contents-container'),
+    threshold: 0.5,
+  });
+};
+
+let contentsObserver: IntersectionObserver;
+const initContentsObserver = () => {
+  if (contentsObserver) contentsObserver.disconnect();
+  contentsObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const idx = dliibContentElements.value.indexOf(entry.target as HTMLElement);
+      if (idx !== -1) currentPage.value = idx;
+    });
+  }, {
+    root: document.getElementById(`dliib-${dliib.value!.id}-container`),
     threshold: 0.5,
   });
 };
@@ -90,13 +114,11 @@ const getDliib = async () => {
 const moveToPreviousPage = () => {
   const el = document.getElementById(`dliib-${dliib.value!.id}-${currentPage.value - 1}`);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  currentPage.value -= 1;
 };
 
 const moveToNextPage = () => {
   const el = document.getElementById(`dliib-${dliib.value!.id}-${currentPage.value + 1}`);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  currentPage.value += 1;
 };
 </script>
 
@@ -109,10 +131,10 @@ const moveToNextPage = () => {
 <template>
   <div class="relative h-[95%] shadow-lg rounded-lg m-5 px-3 pt-3 bg-gray-200 text-lg snap-start">
     <template v-if="dliib">
-      <div class="dliib-contents-container overflow-x-auto h-full flex snap-x snap-mandatory">
+      <div :id="`dliib-${dliib.id}-container`" class="dliib-contents-container overflow-x-auto h-full flex snap-x snap-mandatory">
         <div
           :id="`dliib-${dliib.id}-${idx}`"
-          class="dliib-content snap-center min-w-full overflow-y-auto border rounded-lg bg-gray-100 p-5"
+          class="snap-center min-w-full overflow-y-auto border rounded-lg bg-gray-100 p-5"
           v-for="(dliibContent, idx) in dliib.contents"
           v-html="dliibContent?.replaceAll('\n', '<br />')"
         ></div>

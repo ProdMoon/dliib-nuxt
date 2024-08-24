@@ -11,6 +11,10 @@ onMounted(() => {
   getDliibs();
 });
 
+watch(token, () => {
+  getDliibs();
+});
+
 const getApiHealth = async () => {
   const healthResponse = await useApiFetch('/api/health');
   apiHealth.value = !!healthResponse;
@@ -19,7 +23,7 @@ const getApiHealth = async () => {
 const getDliibs = async () => {
   const dliibsResponse = await useApiFetch('/api/dliib', {
     headers: {
-      Authorization: token.value!,
+      Authorization: token.value,
     },
   });
   dliibs.value = dliibsResponse;

@@ -51,6 +51,10 @@ const initContainerObserver = () => {
   });
 };
 
+watch(props, () => {
+  dliib.value = props.dliib;
+});
+
 let contentsObserver: IntersectionObserver;
 const initContentsObserver = () => {
   if (contentsObserver) contentsObserver.disconnect();
@@ -59,7 +63,6 @@ const initContentsObserver = () => {
       if (!entry.isIntersecting) return;
       const idx = dliibContentElements.value.indexOf(entry.target as HTMLElement);
       if (idx !== -1) currentPage.value = idx;
-      console.log(`${dliib.value!.id}'s current page is ${currentPage.value}`);
     });
   }, {
     root: document.getElementById(`dliib-${dliib.value!.id}-container`),

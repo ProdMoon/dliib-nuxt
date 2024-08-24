@@ -2,13 +2,15 @@
 const { status, refresh } = useAuth();
 const { refreshToken } = useAuthState();
 
-if (status.value === 'unauthenticated' && refreshToken.value) {
-  try {
-    await refresh();
-  } catch (error) {
-    // ignore
+onMounted(async () => {
+  if (status.value === 'unauthenticated' && refreshToken.value) {
+    try {
+      await refresh();
+    } catch (error) {
+      // ignore
+    }
   }
-}
+});
 </script>
 
 <style>

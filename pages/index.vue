@@ -6,17 +6,24 @@ const { token } = useAuth();
 const apiHealth = ref(true);
 const dliibs = ref<Dliib[] | undefined>(undefined);
 
-const healthResponse = await useApiFetch('/api/health');
-apiHealth.value = !!healthResponse;
+onMounted(() => {
+  getApiHealth();
+  getDliibs();
+});
 
-onMounted(async () => {
+const getApiHealth = async () => {
+  const healthResponse = await useApiFetch('/api/health');
+  apiHealth.value = !!healthResponse;
+};
+
+const getDliibs = async () => {
   const dliibsResponse = await useApiFetch('/api/dliib', {
     headers: {
       Authorization: token.value!,
     },
   });
   dliibs.value = dliibsResponse;
-});
+};
 </script>
 
 <template>

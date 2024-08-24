@@ -36,6 +36,10 @@ onUnmounted(() => {
   containerObserver && containerObserver.disconnect();
 });
 
+watch(props, () => {
+  dliib.value = props.dliib;
+});
+
 let containerObserver: IntersectionObserver;
 const initContainerObserver = () => {
   if (containerObserver) containerObserver.disconnect();
@@ -50,10 +54,6 @@ const initContainerObserver = () => {
     threshold: 0.5,
   });
 };
-
-watch(props, () => {
-  dliib.value = props.dliib;
-});
 
 let contentsObserver: IntersectionObserver;
 const initContentsObserver = () => {

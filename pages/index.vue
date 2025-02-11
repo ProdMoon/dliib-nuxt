@@ -3,7 +3,7 @@ import type { Dliib } from '@/types/dliib';
 
 const { token } = useAuth();
 
-const apiHealth = ref(true);
+const apiHealth = ref<boolean | null>(null);
 const dliibs = ref<Dliib[] | undefined>(undefined);
 
 onMounted(() => {
@@ -16,8 +16,12 @@ watch(token, () => {
 });
 
 const getApiHealth = async () => {
-  const healthResponse = await useApiFetch('/api/health');
-  apiHealth.value = !!healthResponse;
+  try {
+    const healthResponse = await useApiFetch('/api/health');
+    apiHealth.value = !!healthResponse;
+  } catch (error) {
+    apiHealth.value = false;
+  }
 };
 
 const getDliibs = async () => {
@@ -43,9 +47,9 @@ const getDliibs = async () => {
       </template>
       <template v-else>
         <DliibWindowContentCard>
-          드립을 불러오는 중...<br />
-          <br />
-          서버 상태가 {{ apiHealth ? '좋습니다.' : '좋지 않습니다... 🤔 이 상태가 지속된다면 새로고침 해주세요.' }}
+          <span v-if="apiHealth === false">
+            서버 상태가 좋지 않습니다... 🤔 이 상태가 지속된다면 새로고침 해주세요.
+          </span>
         </DliibWindowContentCard>
       </template>
     </DliibWindowInnerContainer>

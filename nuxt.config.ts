@@ -9,11 +9,13 @@ const BASE_URL = 'https://dliibapi.azurewebsites.net';
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss', '@sidebase/nuxt-auth'],
+
   runtimeConfig: {
     public: {
       baseURL: BASE_URL,
     },
   },
+
   app: {
     head: {
       title: '드립 : dliib',
@@ -23,6 +25,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   auth: {
     baseURL: BASE_URL + '/api/auth',
     provider: {
@@ -42,4 +45,6 @@ export default defineNuxtConfig({
       sessionDataType: { email: 'string' },
     },
   },
+
+  compatibilityDate: '2025-02-11',
 });
